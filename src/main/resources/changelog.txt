@@ -1,5 +1,9 @@
 Changelog
 ---------
+unofficial-1.5.2:
+-FIXED:  Magical crops' Agricultural Journal ID
+-CHANGE: Fix zh_CN.lang's punctuations.
+
 1.5.1:
 -FIXED:  Tank crash
 -FIXED:  Crops, when not planted on crop sticks having inverted growth rate modifier

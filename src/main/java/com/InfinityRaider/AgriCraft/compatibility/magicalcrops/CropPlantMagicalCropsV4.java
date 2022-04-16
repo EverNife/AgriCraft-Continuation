@@ -61,7 +61,9 @@ public class CropPlantMagicalCropsV4 extends CropPlantGeneric {
     @SideOnly(Side.CLIENT)
     public String getInformation() {
         String name = getSeed().getUnlocalizedName();
-        name = name.substring(name.indexOf("Seeds")+"Seeds".length());
+        int start = Math.max(0, name.indexOf('.')+1);
+        int stop = name.indexOf("Seeds");
+        name = name.substring(start, stop<0?name.length():stop);
         return "agricraft_journal.mc_"+name;
     }
 }

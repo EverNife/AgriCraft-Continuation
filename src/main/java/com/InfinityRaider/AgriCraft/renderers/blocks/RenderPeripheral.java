@@ -122,7 +122,7 @@ public class RenderPeripheral extends RenderBlockBase {
             GL11.glTranslatef(-dx, -dy, -dz);
             GL11.glRotatef(-180, 0, 0, 1);
 
-            //rotate 90° for the next render
+            //rotate 90Â° for the next render
             GL11.glTranslatef(0.5F, 0.5F, 0.5F);
             GL11.glRotatef(-90, 0, 1, 0);
             GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
