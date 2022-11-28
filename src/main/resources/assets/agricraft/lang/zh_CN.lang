@@ -207,7 +207,7 @@ agricraft_tooltip.growthStage=生长阶段
 agricraft_tooltip.mature=成熟
 agricraft_tooltip.valve=受红石信号控制
 agricraft_tooltip.grate=用藤蔓右击铺置藤蔓
-agricraft_tooltip.clipper1=在作物上右击得到接穗,
+agricraft_tooltip.clipper1=在作物上右击得到接穗, 
 agricraft_tooltip.clipper2=接穗可种在其他作物架上
 agricraft_tooltip.clipper3=其种植成功率由强度决定
 agricraft_tooltip.analyzer=样本
@@ -238,7 +238,7 @@ agricraft_description.method.needsBaseBlock=Returns if the crop crop at the spec
 
 //misc
 agricraft_arg.direction=direction
-agricraft_arg.direction.optional=(optional) direction
+agricraft_arg.direction.optional= (optional) direction
 
 // nei GUI
 agricraft_nei.mutation.title=作物杂交
@@ -349,7 +349,7 @@ agricraft_journal.hc_Cabbage=种植卷心菜通常是为了它的被菜叶层层
 agricraft_journal.hc_CactusFruit=通常这种水果也长有刺, 时刻保持警惕。
 agricraft_journal.hc_Candleberry=蜡杨梅是一种结有小小的果实的小灌木。
 agricraft_journal.hc_Cantaloupe=哈密瓜一般是一种直接生吃的水果, 或者制成沙拉, 或者放入冰淇淋或蛋奶糊中用作甜点。
-agricraft_journal.hc_Cauliflower=花椰菜可以烤、煮、炒、蒸、或者干脆直接生吃。
+agricraft_journal.hc_Cauliflower=花椰菜可以烤、煮、炒、蒸, 或者干脆直接生吃。
 agricraft_journal.hc_Celery=芹菜是一种非常普遍的蔬菜, 可食用部分是它的茎。
 agricraft_journal.hc_ChiliPepper=辣椒在烹饪中有很多用处, 从直接浸泡到让你的汤更加有味。
 agricraft_journal.hc_Coffee=这些豆子是一杯现磨咖啡的基础, 帮你开启新一天, 所以根本上来讲这就是你一天的基础。
@@ -365,7 +365,7 @@ agricraft_journal.hc_Grape=葡萄是一种落叶的木本藤的果实状的莓, 
 agricraft_journal.hc_Kiwi=猕猴桃可以种在夏季热量足够的大多数地方。
 agricraft_journal.hc_Leek=不像洋葱那样紧密的球茎, 韭葱有着被紧密的叶鞘包围的圆柱球茎, 因将泥土拉到身边, 终日不见阳光而日渐变白。
 agricraft_journal.hc_Lettuce=通常作为种耐寒的一年生作物, 莴苣是很容易培养的, 尽管它仍需要较低温度以避免过早开花。
-agricraft_journal.hc_Mustard=如果是在合适的条件下, 芥末种子通常需要三到十天时间发芽。这些合适的条件包括低温和相对潮湿的土壤。
+agricraft_journal.hc_Mustard=如果是在合适的条件下, 芥末种子通常需要3到10天时间发芽。这些合适的条件包括低温和相对潮湿的土壤。
 agricraft_journal.hc_Oats=燕麦很适合人类以燕麦粥或燕麦卷的形式食用, 但最普遍的用法却是牲口的饲料。
 agricraft_journal.hc_Okra=秋葵因其可食用的绿色豆荚而变得很有价值。
 agricraft_journal.hc_Onion=洋葱植物有一个中空, 偏蓝的绿叶组成的扇形, 其基础的球茎会在时长足够时膨胀饱满。
@@ -381,7 +381,7 @@ agricraft_journal.hc_Rutabaga=一些人会把芜菁甘蓝切成各种样式 (大
 agricraft_journal.hc_Rye=黑麦是一种草本植物, 以谷物形式大范围种植, 用作覆盖作物或者饲料作物。
 agricraft_journal.hc_Scallion=青葱有着一种相对温柔的洋葱味, 用作蔬菜, 或生吃或烹调。
 agricraft_journal.hc_Seaweed=海藻被用于点缀沙拉或制成酱汁, 营养食物, 或是肉鱼类产品, 乳制品或焙烤食物的防腐剂。
-agricraft_journal.hc_Sesameseeds=芝麻是最古老的油料作物之一, 已经被人类种植了 3000 年以上了。
+agricraft_journal.hc_Sesameseeds=芝麻是最古老的油料作物之一, 已经被人类种植了 000年以上了。
 agricraft_journal.hc_Soybean=传统的零发酵大豆用法有豆奶, 还有老豆腐和豆腐皮。
 agricraft_journal.hc_SpiceLeaf=香叶是和草药是分开对待的, 因为香叶是一种用于调味或装饰的绿色植物的叶。
 agricraft_journal.hc_Spinach=卡通角色大力水手波派就十分喜欢吃菠菜, 吃完菠菜后他的身体会变得更加强壮。
@@ -431,7 +431,7 @@ agricraft_journal.pc_cannabis=通常被称为药用大麻, 是一种广泛使用
 agricraft_journal.pc_coca=这种植物的叶子是可卡因的原材料。
 agricraft_journal.pc_hop=啤酒花用于酿造各种麦酒和淡啤。
 agricraft_journal.pc_tobacco=即使有害健康, 世界各地都在吸烟。
-agricraft_journal.pc_coffeaCherries=咖啡豆是咖啡植物的种子, 也是制作咖啡的原料，因为紫红色果实里的小坑, 它也常被称为 一种樱桃。
+agricraft_journal.pc_coffeaCherries=咖啡豆是咖啡植物的种子, 也是制作咖啡的原料, 因为紫红色果实里的小坑, 它也常被称为一种樱桃。
 
 //blue power flax
 agricraft_journal.bp_flax_seeds=亚麻就是线 ~Sjin.
@@ -448,7 +448,7 @@ agricraft.journal_PC.plant8=成熟时, 这些植物会爆发出种子。
 agricraft.journal_PC.plant9=这些植物会释放烟雾。谁知道这些烟有什么效果呢。
 agricraft.journal_PC.plant10=这些植物的种子有高斥力并且在地上会弹走。
 agricraft.journal_PC.plant11=这些植物的种子比空气轻, 它们会飞进大气层。
-agricraft.journal_PC.plant12=成熟时, 这些植物会向不同方向射出 4 个种子。
+agricraft.journal_PC.plant12=成熟时, 这些植物会向不同方向射出4个种子。
 agricraft.journal_PC.plant14=这些植物在地面附近高速射出种子, 只有撞墙是才停下来。
 agricraft.journal_PC.plant15=这些植物的种子随风飞行寻找沃土。
 
@@ -475,7 +475,7 @@ agricraft_journal.lotr_pipeweedSeeds=烟斗草 (又叫半身人之叶) 是一种
 //advent of ascension
 agricraft_journal.aoa_BubbleBerry=这些果实味道很好玩。
 agricraft_journal.aoa_Chili=这些辣椒很辣, 它们烧掉的不仅仅是你的嘴。
-agricraft_journal.aoa_EyeBulb=你知道被人看着的感觉是什么样的吗? 你现在可以随时感受。
+agricraft_journal.aoa_EyeBulb=你知道被人看着的感觉是什么样的吗? 你现在随时可以感受。
 agricraft_journal.aoa_Floracle=有一种奇怪的气场笼罩在这些花四周。
 agricraft_journal.aoa_Goldicap=这种花的花瓣似乎是万能解毒药。
 agricraft_journal.aoa_HeartFruit=这种植物的果实味道不错, 但是会伤人。
@@ -511,22 +511,22 @@ agricraft_journal.harvestTheNether_glowflower=种植这种漂亮的花朵能得�
 agricraft_journal.harvestTheNether_marrowberry=这种浆果吃起来味道怪怪的。
 
 //the kitchen mod
-agricraft_journal.kitchenMod_lettuce=作为一种一年一收的耐寒植物, 生菜易于种植, 虽然它仍需要较低的温度来防止它开花过 快。
+agricraft_journal.kitchenMod_lettuce=作为一种一年一收的耐寒植物, 生菜易于种植, 虽然它仍需要较低的温度来防止它开花过快。
 agricraft_journal.kitchenMod_peanut=花生有很多用途。可以直接吃, 经常出现在各种食谱中, 制成溶剂、油脂、药物、纺织材料, 哦还有花生酱, 还有很多其他用途。
 agricraft_journal.kitchenMod_strawberry=草莓很受欢迎, 适合种植于家庭环境中, 可以直接消费掉, 或者用作装饰用途。
 agricraft_journal.kitchenMod_tomato=番茄有多种食用方式, 包括生吃, 还有各种菜的原料、酱料、沙拉, 或者饮料。
 
 //gany's nether
-agricraft_journal.ganysNether_ghostSeeds=This ghastly crop lies at the base of procusing spooky flour.
-agricraft_journal.ganysNether_hellBushSeeds=This bush's berry feel warm and juicy, however I wouldn't bite in them...
-agricraft_journal.ganysNether_quarzBerrySeeds=Berries made out of quartz, who would've thought!
-agricraft_journal.ganysNether_witherShrubSeeds=An extremely rare crop which effectively grows wither skulls.
+agricraft_journal.ganysNether_ghostSeeds=这种可怕的作物是制作幽冥粉的基础。
+agricraft_journal.ganysNether_hellBushSeeds=这种灌木的浆果摸起来温暖多汁, 但我不会咬它们…
+agricraft_journal.ganysNether_quarzBerrySeeds=石英做的浆果, 难以置信!
+agricraft_journal.ganysNether_witherShrubSeeds=极其稀有的作物, 可以有效地生产凋灵骷髅头颅。
 
 //gany's surface
-agricraft_journal.ganysSurface_camellia=Delicious tea can be extracted from this plant's leaves.
+agricraft_journal.ganysSurface_camellia=这种植物的叶子可以泡一杯美味的茶。
 
 //et futurum
-agricraft_journal.etFuturum_beetRoot=The usually deep purple roots of beetroot are eaten either boiled, roasted or raw, either alone or combined with any salad vegetable.
+agricraft_journal.etFuturum_beetRoot=甜菜根通常是紫色的, 可以煮着吃、烤着吃或生吃, 既可以单独食用, 也可以和沙拉蔬菜一起使用。
 
 //calculator
 agricraft_journal.calulator_broccoli=花椰菜是卷心菜科中的一种可食用绿色蔬菜, 其开花的巨大头部被用作蔬菜。
