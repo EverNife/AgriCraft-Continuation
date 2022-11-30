@@ -2,6 +2,7 @@ Changelog
 ---------
 1.5.1-unofficial.1.0.3-Aunst:
 -FIXED: Updated zh_CN.lang (Aunst)
+-FIXED: Updated mcmod.info
 
 1.5.0-unofficial.1.0.2-Aunst:
 -CHANGE: Version number only
