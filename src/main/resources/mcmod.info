@@ -5,10 +5,11 @@
 "description": "Agricultural farming extended",
 "version": "${version}",
 "mcversion": "${mcversion}",
-"url": "http://minecraft.curseforge.com/mc-mods/225635-agricraft",
-"updateUrl": "http://minecraft.curseforge.com/mc-mods/225635-agricraft/files",
+"url": "https://github.com/Aunst/AgriCraft",
+"updateUrl": "https://github.com/Aunst/AgriCraft/releases",
 "authorList": [
-"InfinityRaider"
+"InfinityRaider",
+"Aunst"
 ],
 "credits": "Code Help: Imasius, RlonRyan, API: HenryLoenwind, Textures: MechWarrior99, SkullyGamingMC, VapourDrive, SkeletonPunk",
 "logoFile": "assets/agricraft/textures/logo.png",
