@@ -53,5 +53,6 @@ dependencies {
     transformedMod('com.github.GTNewHorizons:ForgeMultipart:1.4.0:dev')
     transformedMod('com.github.GTNewHorizons:AppleCore:3.2.11:dev')
     transformedMod('com.github.GTNewHorizons:CraftTweaker:3.2.13:dev')
+    transformedMod('com.github.GTNewHorizons:waila:1.6.0:dev')
 
 }
