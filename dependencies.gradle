@@ -39,5 +39,7 @@ dependencies {
     implementation "curse.maven:codechickenlib-unofficial-746280:4388255-deobf-sources-api"
 
     runtimeOnly('com.github.GTNewHorizons:ForgeMultipart:1.4.0:dev')
+    runtimeOnly('com.github.GTNewHorizons:AppleCore:3.2.11:dev')
+    runtimeOnly('com.github.GTNewHorizons:CraftTweaker:3.2.13:dev')
 
 }
