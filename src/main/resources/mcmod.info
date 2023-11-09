@@ -3,8 +3,8 @@
 "modid": "AgriCraft",
 "name": "AgriCraft",
 "description": "Agricultural farming extended",
-"version": "${version}",
-"mcversion": "${mcversion}",
+"version": "1.5.1",
+"mcversion": "1.7.10",
 "url": "https://github.com/Aunst/AgriCraft",
 "updateUrl": "https://github.com/Aunst/AgriCraft/releases",
 "authorList": [
