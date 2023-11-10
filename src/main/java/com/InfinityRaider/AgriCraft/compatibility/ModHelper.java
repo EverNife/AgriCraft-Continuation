@@ -5,6 +5,7 @@ import com.InfinityRaider.AgriCraft.compatibility.NEI.NEIHelper;
 import com.InfinityRaider.AgriCraft.compatibility.adiectamateria.AdiectaMateriaHelper;
 import com.InfinityRaider.AgriCraft.compatibility.adventofascension.AdventOfAscensionHelper;
 import com.InfinityRaider.AgriCraft.compatibility.agriculture.AgricultureHelper;
+import com.InfinityRaider.AgriCraft.compatibility.alchemycraft2.AlchemyCraft2Helper;
 import com.InfinityRaider.AgriCraft.compatibility.applecore.AppleCoreHelper;
 import com.InfinityRaider.AgriCraft.compatibility.applemilktea.AppleMilkTeaHelper;
 import com.InfinityRaider.AgriCraft.compatibility.arsmagica.ArsMagicaHelper;
@@ -263,6 +264,7 @@ public abstract class ModHelper {
                 WailaHelper.class,
                 WeeeFlowersHelper.class,
                 WitcheryHelper.class,
+                AlchemyCraft2Helper.class,
                 AdiectaMateriaHelper.class
         };
         for(Class clazz:classes) {
