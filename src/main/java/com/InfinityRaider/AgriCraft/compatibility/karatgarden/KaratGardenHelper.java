@@ -14,13 +14,14 @@ public class KaratGardenHelper extends ModHelper {
         Item fruit1 = (Item) Item.itemRegistry.getObject("karatgarden:carrotbase");
         Block plant1 = (Block) Block.blockRegistry.getObject("karatgarden:blockcarrotbase");
         try {
-            CropPlantHandler.registerPlant(new CropPlantKG(new ItemStack(seed1), new ItemStack(fruit1, 1, 1), plant1));
+            CropPlantHandler.registerPlant(new CropPlantKG(new ItemStack(seed1), new ItemStack(fruit1, 1, 0), plant1));
         } catch (Exception e) {
             if(ConfigurationHandler.debug) {
                 e.printStackTrace();
             }
         }
     }
+
 
 
     @Override

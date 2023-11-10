@@ -34,6 +34,7 @@ import com.InfinityRaider.AgriCraft.compatibility.hungeroverhaul.HungerOverhaulH
 import com.InfinityRaider.AgriCraft.compatibility.hydraulicraft.HydraulicraftHelper;
 import com.InfinityRaider.AgriCraft.compatibility.immersiveengineering.ImmersiveEngineeringHelper;
 import com.InfinityRaider.AgriCraft.compatibility.karatgarden.KaratGardenHelper;
+import com.InfinityRaider.AgriCraft.compatibility.kitchencraft_foods.KitchenCraftHelper;
 import com.InfinityRaider.AgriCraft.compatibility.kitchenmod.KitchenModHelper;
 import com.InfinityRaider.AgriCraft.compatibility.lordoftherings.LordOfTheRingsHelper;
 import com.InfinityRaider.AgriCraft.compatibility.magicalcrops.MagicalCropsHelper;
