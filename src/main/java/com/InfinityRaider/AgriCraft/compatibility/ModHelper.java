@@ -19,6 +19,7 @@ import com.InfinityRaider.AgriCraft.compatibility.chococraft.ChocoCraftHelper;
 import com.InfinityRaider.AgriCraft.compatibility.computercraft.ComputerCraftHelper;
 import com.InfinityRaider.AgriCraft.compatibility.ex_nihilo.ExNihiloHelper;
 import com.InfinityRaider.AgriCraft.compatibility.extrabiomesxl.ExtraBiomesXLHelper;
+import com.InfinityRaider.AgriCraft.compatibility.extremefood.ExtremeFoodHelper;
 import com.InfinityRaider.AgriCraft.compatibility.forestry.ForestryHelper;
 import com.InfinityRaider.AgriCraft.compatibility.forgemultipart.ForgeMultiPartHelper;
 import com.InfinityRaider.AgriCraft.compatibility.ganysMods.EtFuturumHelper;
@@ -267,6 +268,7 @@ public abstract class ModHelper {
                 WitcheryHelper.class,
                 AlchemyCraft2Helper.class,
                 AtteinedDropsHelper.class,
+                ExtremeFoodHelper.class,
                 AdiectaMateriaHelper.class
         };
         for(Class clazz:classes) {
