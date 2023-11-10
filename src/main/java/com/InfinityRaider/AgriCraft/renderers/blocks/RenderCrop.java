@@ -57,12 +57,16 @@ public class RenderCrop extends RenderBlockBase {
     private void renderPlant(IBlockAccess world, int x, int y, int z, TileEntityCrop crop, RenderBlocks renderer) {
         if (crop.hasPlant()) {
             //render the plant
+            Tessellator tessellator = Tessellator.instance;
+            tessellator.addTranslation(0, -1 * Constants.UNIT, 0);
             crop.getPlant().renderPlantInCrop(world, x, y, z, renderer);
+            tessellator.addTranslation(0, Constants.UNIT, 0);
         } else if (crop.hasWeed()) {
             //render weeds
             PlantRenderer.renderPlantLayer(world, x, y, z, 6, crop.getPlantIcon(), 0);
         }
     }
+
 
     @Override
     protected void doInventoryRender(ItemRenderType type, ItemStack item, Object... data) {
