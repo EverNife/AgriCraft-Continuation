@@ -47,6 +47,7 @@ import com.InfinityRaider.AgriCraft.compatibility.natura.NaturaHelper;
 import com.InfinityRaider.AgriCraft.compatibility.netherlicious.NetherliciousHelper;
 import com.InfinityRaider.AgriCraft.compatibility.opencomputers.OpenComputersHelper;
 import com.InfinityRaider.AgriCraft.compatibility.plantmegapack.PlantMegaPackHelper;
+import com.InfinityRaider.AgriCraft.compatibility.pneumaticcooking.PneumaticCookingHelper;
 import com.InfinityRaider.AgriCraft.compatibility.psychedelicraft.PsychedelicraftHelper;
 import com.InfinityRaider.AgriCraft.compatibility.resourcefulcrops.ResourcefulCropsHelper;
 import com.InfinityRaider.AgriCraft.compatibility.tconstruct.TinkersConstructHelper;
@@ -276,6 +277,7 @@ public abstract class ModHelper {
                 KaratGardenHelper.class,
                 MrPlankExtraFoodHelper.class,
                 NetherliciousHelper.class,
+                PneumaticCookingHelper.class,
                 AdiectaMateriaHelper.class
         };
         for(Class clazz:classes) {
