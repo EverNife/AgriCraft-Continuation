@@ -58,6 +58,7 @@ import com.InfinityRaider.AgriCraft.compatibility.thaumcraft.ThaumcraftHelper;
 import com.InfinityRaider.AgriCraft.compatibility.waila.WailaHelper;
 import com.InfinityRaider.AgriCraft.compatibility.weeeflowers.WeeeFlowersHelper;
 import com.InfinityRaider.AgriCraft.compatibility.witchery.WitcheryHelper;
+import com.InfinityRaider.AgriCraft.compatibility.zoocraftdiscoveries.ZoocraftDiscoveriesHelper;
 import com.InfinityRaider.AgriCraft.handler.ConfigurationHandler;
 import com.InfinityRaider.AgriCraft.tileentity.TileEntityCrop;
 import cpw.mods.fml.common.Loader;
@@ -284,6 +285,7 @@ public abstract class ModHelper {
                 StaffOfPowerHelper.class,
                 Steamcraft2Helper.class,
                 TeaAndBiscuitsHelper.class,
+                ZoocraftDiscoveriesHelper.class,
                 AdiectaMateriaHelper.class
         };
         for(Class clazz:classes) {
