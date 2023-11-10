@@ -2,6 +2,7 @@ package com.InfinityRaider.AgriCraft.compatibility;
 
 import com.InfinityRaider.AgriCraft.blocks.BlockCrop;
 import com.InfinityRaider.AgriCraft.compatibility.NEI.NEIHelper;
+import com.InfinityRaider.AgriCraft.compatibility.actuallyadditions.ActuallyAdditionHelper;
 import com.InfinityRaider.AgriCraft.compatibility.adventofascension.AdventOfAscensionHelper;
 import com.InfinityRaider.AgriCraft.compatibility.agriculture.AgricultureHelper;
 import com.InfinityRaider.AgriCraft.compatibility.applecore.AppleCoreHelper;
@@ -261,7 +262,8 @@ public abstract class ModHelper {
                 TinkersConstructHelper.class,
                 WailaHelper.class,
                 WeeeFlowersHelper.class,
-                WitcheryHelper.class
+                WitcheryHelper.class,
+                ActuallyAdditionHelper.class
         };
         for(Class clazz:classes) {
             if(ModHelper.class.isAssignableFrom(clazz)) {
