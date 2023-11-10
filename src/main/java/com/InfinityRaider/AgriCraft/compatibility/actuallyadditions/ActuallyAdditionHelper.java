@@ -34,7 +34,7 @@ public class ActuallyAdditionHelper extends ModHelper {
         }
 
         // Rice
-        Block ricePlant = (Block) Block.blockRegistry.getObject("ActuallyAdditions:blockRice");
+        Block ricePlant = (Block) Block.blockRegistry.getObject("flaxCropActuallyAdditions:blockRice");
         Item riceSeed = (Item) Item.itemRegistry.getObject("ActuallyAdditions:itemRiceSeed");
         Item riceFruit = (Item) Item.itemRegistry.getObject("ActuallyAdditions:itemFood:16");
         CropPlant riceCrop = new CropPlantAA(riceSeed, ricePlant, new ItemStack(riceFruit, 1, 0));
