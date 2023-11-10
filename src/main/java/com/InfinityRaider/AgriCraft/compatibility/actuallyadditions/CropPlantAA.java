@@ -103,6 +103,7 @@ public class CropPlantAA extends CropPlant {
 
     @Override
     public String getInformation() {
+        // todo : update journal
         return "agricraft_journal.BoP_"+plant.getUnlocalizedName().substring(plant.getUnlocalizedName().indexOf('.')+1);
     }
 }
