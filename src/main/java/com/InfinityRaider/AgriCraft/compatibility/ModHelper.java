@@ -44,6 +44,7 @@ import com.InfinityRaider.AgriCraft.compatibility.minetweaker.MinetweakerHelper;
 import com.InfinityRaider.AgriCraft.compatibility.mobdropcrops.MobDropCropsHelper;
 import com.InfinityRaider.AgriCraft.compatibility.mrplanksextrafood.MrPlankExtraFoodHelper;
 import com.InfinityRaider.AgriCraft.compatibility.natura.NaturaHelper;
+import com.InfinityRaider.AgriCraft.compatibility.netherlicious.NetherliciousHelper;
 import com.InfinityRaider.AgriCraft.compatibility.opencomputers.OpenComputersHelper;
 import com.InfinityRaider.AgriCraft.compatibility.plantmegapack.PlantMegaPackHelper;
 import com.InfinityRaider.AgriCraft.compatibility.psychedelicraft.PsychedelicraftHelper;
@@ -274,6 +275,7 @@ public abstract class ModHelper {
                 ExtremeFoodHelper.class,
                 KaratGardenHelper.class,
                 MrPlankExtraFoodHelper.class,
+                NetherliciousHelper.class,
                 AdiectaMateriaHelper.class
         };
         for(Class clazz:classes) {
