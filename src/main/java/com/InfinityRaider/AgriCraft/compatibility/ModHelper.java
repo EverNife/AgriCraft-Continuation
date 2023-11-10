@@ -33,6 +33,7 @@ import com.InfinityRaider.AgriCraft.compatibility.harvestthenether.HarvestTheNet
 import com.InfinityRaider.AgriCraft.compatibility.hungeroverhaul.HungerOverhaulHelper;
 import com.InfinityRaider.AgriCraft.compatibility.hydraulicraft.HydraulicraftHelper;
 import com.InfinityRaider.AgriCraft.compatibility.immersiveengineering.ImmersiveEngineeringHelper;
+import com.InfinityRaider.AgriCraft.compatibility.karatgarden.KaratGardenHelper;
 import com.InfinityRaider.AgriCraft.compatibility.kitchenmod.KitchenModHelper;
 import com.InfinityRaider.AgriCraft.compatibility.lordoftherings.LordOfTheRingsHelper;
 import com.InfinityRaider.AgriCraft.compatibility.magicalcrops.MagicalCropsHelper;
@@ -269,6 +270,7 @@ public abstract class ModHelper {
                 AlchemyCraft2Helper.class,
                 AtteinedDropsHelper.class,
                 ExtremeFoodHelper.class,
+                KaratGardenHelper.class,
                 AdiectaMateriaHelper.class
         };
         for(Class clazz:classes) {
