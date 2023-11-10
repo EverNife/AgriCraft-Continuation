@@ -50,6 +50,7 @@ import com.InfinityRaider.AgriCraft.compatibility.plantmegapack.PlantMegaPackHel
 import com.InfinityRaider.AgriCraft.compatibility.pneumaticcooking.PneumaticCookingHelper;
 import com.InfinityRaider.AgriCraft.compatibility.psychedelicraft.PsychedelicraftHelper;
 import com.InfinityRaider.AgriCraft.compatibility.resourcefulcrops.ResourcefulCropsHelper;
+import com.InfinityRaider.AgriCraft.compatibility.staffofpower.StaffOfPowerHelper;
 import com.InfinityRaider.AgriCraft.compatibility.tconstruct.TinkersConstructHelper;
 import com.InfinityRaider.AgriCraft.compatibility.thaumcraft.ThaumcraftHelper;
 import com.InfinityRaider.AgriCraft.compatibility.waila.WailaHelper;
@@ -278,6 +279,7 @@ public abstract class ModHelper {
                 MrPlankExtraFoodHelper.class,
                 NetherliciousHelper.class,
                 PneumaticCookingHelper.class,
+                StaffOfPowerHelper.class,
                 AdiectaMateriaHelper.class
         };
         for(Class clazz:classes) {
