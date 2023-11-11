@@ -6,10 +6,13 @@ import net.minecraft.tileentity.TileEntity;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.function.Predicate;
 
 public class EntityAIClearWeeds extends EntityAIBase {
-    private static final int range = 8;
-    private EntityVillagerFarmer villager;
+    private static final int RANGE = 8;
+    private static final Predicate<TileEntityCrop> WEED_FILTER = TileEntityCrop::hasWeed;
+
+    private final EntityVillagerFarmer villager;
     private ArrayList<TileEntityCrop> weedsToClear;
     private TileEntityCrop nextCrop;
 
@@ -19,20 +22,19 @@ public class EntityAIClearWeeds extends EntityAIBase {
 
     @Override
     public boolean shouldExecute() {
-        return villager!=null && !villager.isDead && !villager.isTrading();
+        return villager != null && !villager.isDead && !villager.isTrading();
     }
-
     /**
      * Returns whether an in-progress EntityAIBase should continue executing
      */
+    @Override
     public boolean continueExecuting() {
         return this.shouldExecute() && !this.isTaskFinished();
     }
 
     public boolean isTaskFinished() {
-        return (this.weedsToClear==null || this.weedsToClear.size()==0) && this.nextCrop==null;
+        return (this.weedsToClear == null || this.weedsToClear.isEmpty()) && this.nextCrop == null;
     }
-
     /**
      * Determine if this AI Task is interruptible by a higher (= lower value) priority task.
      */
@@ -40,7 +42,6 @@ public class EntityAIClearWeeds extends EntityAIBase {
     public boolean isInterruptible() {
         return true;
     }
-
     /**
      * Execute a one shot task or start executing a continuous task
      */
@@ -49,7 +50,6 @@ public class EntityAIClearWeeds extends EntityAIBase {
         this.findWeeds();
         this.getNextCrop();
     }
-
     /**
      * Resets the task
      */
@@ -57,25 +57,23 @@ public class EntityAIClearWeeds extends EntityAIBase {
     public void resetTask() {
         this.startExecuting();
     }
-
     /**
      * Updates the task
      */
     @Override
     public void updateTask() {
-        if(isTaskFinished()) {
+        if (isTaskFinished()) {
             this.resetTask();
         }
-        if(nextCrop!=null) {
+
+        if (nextCrop != null) {
             double dist = this.getDistanceFromCrop();
-            if(dist<0) {
+            if (dist < 0) {
                 getNextCrop();
-            }
-            else if (dist <= 1) {
+            } else if (dist <= 1) {
                 nextCrop.clearWeed();
                 getNextCrop();
-            }
-            else if(!villager.getNavigator().tryMoveToXYZ(nextCrop.xCoord+0.5D, nextCrop.yCoord, nextCrop.zCoord+0.5D, 1)) {
+            } else if (!villager.getNavigator().tryMoveToXYZ(nextCrop.xCoord + 0.5D, nextCrop.yCoord, nextCrop.zCoord + 0.5D, 1)) {
                 getNextCrop();
             }
         } else {
@@ -86,39 +84,36 @@ public class EntityAIClearWeeds extends EntityAIBase {
     private void getNextCrop() {
         Iterator<TileEntityCrop> it = weedsToClear.iterator();
         nextCrop = null;
-        while(it.hasNext() && nextCrop==null) {
+        while (it.hasNext() && nextCrop == null) {
             nextCrop = it.next();
             it.remove();
-            if(!villager.getNavigator().tryMoveToXYZ(nextCrop.xCoord+0.5D, nextCrop.yCoord, nextCrop.zCoord+0.5D, 1)) {
+            if (!villager.getNavigator().tryMoveToXYZ(nextCrop.xCoord + 0.5D, nextCrop.yCoord, nextCrop.zCoord + 0.5D, 1)) {
                 nextCrop = null;
             }
         }
     }
 
     private double getDistanceFromCrop() {
-        if(this.nextCrop==null) {
+        if (this.nextCrop == null) {
             return -1;
         }
-        double dx = (villager.posX-(nextCrop.xCoord+0.5D));
-        double dy = (villager.posY-nextCrop.yCoord);
-        double dz = (villager.posZ-(nextCrop.zCoord+0.5D));
-        return  dx*dx + dy*dy + dz*dz;
+        double dx = (villager.posX - (nextCrop.xCoord + 0.5D));
+        double dy = (villager.posY - nextCrop.yCoord);
+        double dz = (villager.posZ - (nextCrop.zCoord + 0.5D));
+        return dx * dx + dy * dy + dz * dz;
     }
 
     private void findWeeds() {
-        this.weedsToClear = new ArrayList<TileEntityCrop>();
-        for (int dx = -range; dx < range; dx++) {
-            for (int dy = -range; dy < range; dy++) {
-                for (int dz = -range; dz < range; dz++) {
+        this.weedsToClear = new ArrayList<>();
+        for (int dx = -RANGE; dx < RANGE; dx++) {
+            for (int dy = -RANGE; dy < RANGE; dy++) {
+                for (int dz = -RANGE; dz < RANGE; dz++) {
                     int x = ((int) villager.posX) + dx;
                     int y = ((int) villager.posY) + dy;
                     int z = ((int) villager.posZ) + dz;
                     TileEntity te = villager.worldObj.getTileEntity(x, y, z);
-                    if (te != null && te instanceof TileEntityCrop) {
-                        TileEntityCrop crop = (TileEntityCrop) te;
-                        if (crop.hasWeed()) {
-                            weedsToClear.add(crop);
-                        }
+                    if (te instanceof TileEntityCrop && WEED_FILTER.test((TileEntityCrop) te)) {
+                        weedsToClear.add((TileEntityCrop) te);
                     }
                 }
             }
