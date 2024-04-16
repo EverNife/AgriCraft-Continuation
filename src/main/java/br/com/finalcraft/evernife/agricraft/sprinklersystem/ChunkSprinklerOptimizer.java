@@ -35,7 +35,7 @@ public class ChunkSprinklerOptimizer {
     private transient long lastTimeScanned = 0;
     private transient final int scanIntervalSeconds = 5;
 
-    private transient double chanceOfFail = 0; // 0.35 - 0.75
+    private transient double chanceOfFail = 0; // 0.15 - 0.80
 
     public ChunkSprinklerOptimizer(Chunk chunk) {
         this.chunk = chunk;
@@ -107,15 +107,17 @@ public class ChunkSprinklerOptimizer {
 
         }
 
-        this.chanceOfFail = Math.max(0.35, Math.min((0.6D / 200) * cropsOnThisChunk.size(), 0.75));
+        this.chanceOfFail = Math.max(0.15, Math.min((0.80D / 200) * cropsOnThisChunk.size(), 0.80D));
 
     }
 
     public void tickTheEntireChunk(){
 
-        if (TickListener.getTickCounter() - lastTimeTicked < 5){
+        if (TickListener.getTickCounter() - lastTimeTicked < 10){
             return;
         }
+
+        lastTimeTicked = TickListener.getTickCounter();
 
         if (DebugHelper.isDebugEnabled){
             logger.info("[" + TickListener.getTickCounter() + "] Ticking Chunk: " + chunkPos + " for Sprinklers");
