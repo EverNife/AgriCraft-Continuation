@@ -1,12 +1,14 @@
 package com.InfinityRaider.AgriCraft.blocks;
 
+import br.com.finalcraft.evernnifeagricraft.minecraft.vector.BlockPos;
+import br.com.finalcraft.evernnifeagricraft.sprinklersystem.ChunkSprinklerOptimizer;
+import br.com.finalcraft.evernnifeagricraft.sprinklersystem.FCSprinklerManager;
 import com.InfinityRaider.AgriCraft.api.v1.IFertiliser;
 import com.InfinityRaider.AgriCraft.api.v2.IRake;
 import com.InfinityRaider.AgriCraft.api.v2.ITrowel;
 import com.InfinityRaider.AgriCraft.api.v2.IClipper;
 import com.InfinityRaider.AgriCraft.farming.cropplant.CropPlant;
 import com.InfinityRaider.AgriCraft.compatibility.ModHelper;
-import com.InfinityRaider.AgriCraft.compatibility.applecore.AppleCoreHelper;
 import com.InfinityRaider.AgriCraft.farming.CropPlantHandler;
 import com.InfinityRaider.AgriCraft.farming.growthrequirement.GrowthRequirementHandler;
 import com.InfinityRaider.AgriCraft.handler.ConfigurationHandler;
@@ -21,7 +23,6 @@ import com.InfinityRaider.AgriCraft.renderers.blocks.RenderCrop;
 import com.InfinityRaider.AgriCraft.tileentity.TileEntityAgricraft;
 import com.InfinityRaider.AgriCraft.tileentity.TileEntityCrop;
 import cpw.mods.fml.common.Optional;
-import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -43,6 +44,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.shadowmage.ancientwarfare.api.IAncientWarfareFarmable;
@@ -98,41 +100,51 @@ public class BlockCrop extends BlockContainerAgriCraft implements IGrowable, IPl
     /** Randomly called to apply growth ticks */
     @Override
     public void updateTick(World world, int x, int y, int z, Random rnd) {
-        TileEntityCrop crop = (TileEntityCrop) world.getTileEntity(x, y, z);
-        if(crop.hasPlant() || crop.hasWeed()) {
-            Event.Result allowGrowthResult = AppleCoreHelper.validateGrowthTick(this, world, x, y, z, rnd);
-            if (allowGrowthResult != Event.Result.DENY) {
-            	if (crop.isMature() && crop.hasWeed() && ConfigurationHandler.enableWeeds){
-                	crop.spreadWeed();
-                }
-            	else if (crop.isFertile()) {
-                    //multiplier from growth stat
-                    double growthBonus = 1.0 + crop.getGrowth() / 10.0;
-                    //multiplier defined in the config
-                    float global = ConfigurationHandler.growthMultiplier;
-                    //crop dependent base growth rate
-                    float growthRate = (float) crop.getGrowthRate();
-                    //determine if growth tick should be applied or skipped
-                    boolean shouldGrow = (rnd.nextDouble()<=(growthRate * growthBonus * global)/100);
-                    if (shouldGrow) {
-                        crop.applyGrowthTick();
-                    }
-                }
-            }
-        } else {
-            //15% chance to spawn weeds
-            if(ConfigurationHandler.enableWeeds && (Math.random() < ConfigurationHandler.weedSpawnChance)) {
-                crop.spawnWeed();
-            }
-            else if(crop.isCrossCrop()) {
-                crop.crossOver();
+        if (!world.isRemote){
+            Chunk chunk = world.getChunkFromBlockCoords(x, z);
+            ChunkSprinklerOptimizer sprinklerOptimizer = FCSprinklerManager.getOrCreateSprinklerOptmizer(chunk);
+            if (sprinklerOptimizer == null){
+                System.out.println(String.format("sprinklerOptmizer is null at %s", BlockPos.at(x, y, z)));
+            }else {
+                sprinklerOptimizer.scanChunkForSprinklers();
+                sprinklerOptimizer.tickTheEntireChunk();
             }
         }
+
+//        if(crop.hasPlant() || crop.hasWeed()) {
+//            Event.Result allowGrowthResult = AppleCoreHelper.validateGrowthTick(this, world, x, y, z, rnd);
+//            if (allowGrowthResult != Event.Result.DENY) {
+//            	if (crop.isMature() && crop.hasWeed() && ConfigurationHandler.enableWeeds){
+//                	crop.spreadWeed();
+//                }
+//            	else if (crop.isFertile()) {
+//                    //multiplier from growth stat
+//                    double growthBonus = 1.0 + crop.getGrowth() / 10.0;
+//                    //multiplier defined in the config
+//                    float global = ConfigurationHandler.growthMultiplier;
+//                    //crop dependent base growth rate
+//                    float growthRate = (float) crop.getGrowthRate();
+//                    //determine if growth tick should be applied or skipped
+//                    boolean shouldGrow = (rnd.nextDouble()<=(growthRate * growthBonus * global)/100);
+//                    if (shouldGrow) {
+//                        crop.applyGrowthTick();
+//                    }
+//                }
+//            }
+//        } else {
+//            //15% chance to spawn weeds
+//            if(ConfigurationHandler.enableWeeds && (Math.random() < ConfigurationHandler.weedSpawnChance)) {
+//                crop.spawnWeed();
+//            }
+//            else if(crop.isCrossCrop()) {
+//                crop.crossOver();
+//            }
+//        }
     }
 
     /**
      * Harvests the crop from a TileEntity (instance).
-     * 
+     *
      * @param world the World object for this block
      * @param x the x coordinate for this block
      * @param y the y coordinate for this block
@@ -179,7 +191,7 @@ public class BlockCrop extends BlockContainerAgriCraft implements IGrowable, IPl
 
     /**
      * Changes the crop from normal operation, to cross-crop operation.
-     * 
+     *
      * @param world the World object for this block
      * @param x the x coordinate for this block
      * @param y the y coordinate for this block
@@ -201,7 +213,7 @@ public class BlockCrop extends BlockContainerAgriCraft implements IGrowable, IPl
 
     /**
      * Attempts to plant a seed contained in the provided ItemStack.
-     * 
+     *
      * @param stack the seed(s) to plant.
      * @param world the World object for this block
      * @param x the x coordinate for this block
@@ -235,7 +247,7 @@ public class BlockCrop extends BlockContainerAgriCraft implements IGrowable, IPl
 
     /**
      * Handles right-clicks from the player. Allows the player to 'use' the block.
-     * 
+     *
      * @return if the right-click was consumed.
      */
     @Override
@@ -398,7 +410,7 @@ public class BlockCrop extends BlockContainerAgriCraft implements IGrowable, IPl
 
     /**
      * Determines if bonemeal may be applied to the plant contained in the crops.
-     * 
+     *
      * @return if bonemeal may be applied.
      */
     @Override
@@ -408,7 +420,7 @@ public class BlockCrop extends BlockContainerAgriCraft implements IGrowable, IPl
 
     /**
      * Determines if bonemeal speeds up the growth of the contained plant.
-     * 
+     *
      * @return true, bonemeal may speed up any contained plant.
      */
     @Override
@@ -450,7 +462,7 @@ public class BlockCrop extends BlockContainerAgriCraft implements IGrowable, IPl
 
     /**
      * Tests to see if the crop is still on valid soil.
-     * 
+     *
      * @return if the crop is placed in a valid location.
      */
     @Override
@@ -460,7 +472,7 @@ public class BlockCrop extends BlockContainerAgriCraft implements IGrowable, IPl
 
     /**
      * Determines if the the plant is fertile, and can grow.
-     * 
+     *
      * @return if the plant can grow.
      */
     @Override
@@ -470,7 +482,7 @@ public class BlockCrop extends BlockContainerAgriCraft implements IGrowable, IPl
 
     /**
      * Determines if the crops contain a mature plant by checking if the metadata matches {@link Constants#MATURE}.
-     * 
+     *
      * @return if the crop is done growing.
      */
     public boolean isMature(World world, int x, int y, int z) {
@@ -480,7 +492,7 @@ public class BlockCrop extends BlockContainerAgriCraft implements IGrowable, IPl
     /**
      * Handles the plant being harvested from Ancient Warfare crop farms.
      * This is a separate method from {@link #onBlockHarvested(World, int, int, int, int, EntityPlayer)} which handles the crops breaking.
-     * 
+     *
      * @return a list of drops from the harvested plant.
      */
     @Override
@@ -521,7 +533,7 @@ public class BlockCrop extends BlockContainerAgriCraft implements IGrowable, IPl
 
     /**
      * Retrieves the block's item form to be dropped when the block is broken.
-     * 
+     *
      * @return the item form of the crop.
      */
     @Override
@@ -531,7 +543,7 @@ public class BlockCrop extends BlockContainerAgriCraft implements IGrowable, IPl
 
     /**
      * Determines a list of what is dropped when the crops are broken.
-     * 
+     *
      * @return a list of the items to drop.
      */
     @Override
@@ -591,7 +603,7 @@ public class BlockCrop extends BlockContainerAgriCraft implements IGrowable, IPl
 
     /**
      * Retrieves the item form of the block.
-     * 
+     *
      * @return the block's item form.
      */
     @Override
@@ -603,7 +615,7 @@ public class BlockCrop extends BlockContainerAgriCraft implements IGrowable, IPl
     /**
      * Retrieves the block's collision bounding box. Since we want to be able to walk through the crops,
      * they should not collide anywhere, and their bounding box is therefore null.
-     * 
+     *
      * @return null - the crops cannot be collided with.
      */
     @Override
@@ -613,7 +625,7 @@ public class BlockCrop extends BlockContainerAgriCraft implements IGrowable, IPl
 
     /**
      * Retrieves the block's outline box for selections.
-     * 
+     *
      * @return a bounding box representing the area occupied by the crops.
      */
     @Override
@@ -626,7 +638,7 @@ public class BlockCrop extends BlockContainerAgriCraft implements IGrowable, IPl
     /**
      * Determines if the block is a normal block, such as cobblestone.
      * This tells Minecraft if crops are not a normal block (meaning no levers can be placed on it, it's transparent, ...).
-     * 
+     *
      * @return false - the block is not a normal block.
      */
     @Override
@@ -635,7 +647,7 @@ public class BlockCrop extends BlockContainerAgriCraft implements IGrowable, IPl
     /**
      * Determines if the crops should render as any normal block.
      * This tells Minecraft whether or not to call the custom renderer.
-     * 
+     *
      * @return false - the block has custom rendering.
      */
     @Override
@@ -643,7 +655,7 @@ public class BlockCrop extends BlockContainerAgriCraft implements IGrowable, IPl
 
     /**
      * Determines if a side of the block should be rendered, such as one flush with a wall that wouldn't need rendering.
-     * 
+     *
      * @return false - all of the crop's sides need to be rendered.
      */
     @Override
@@ -651,7 +663,7 @@ public class BlockCrop extends BlockContainerAgriCraft implements IGrowable, IPl
 
     /**
      * Renders the hit effects, such as the flying particles when the block is hit.
-     * 
+     *
      * @return false - the block is one-shot and needs no hit particles.
      */
     @Override
@@ -660,7 +672,7 @@ public class BlockCrop extends BlockContainerAgriCraft implements IGrowable, IPl
 
     /**
      * Tells Minecraft if there should be destroy effects, such as particles.
-     * 
+     *
      * @return false - there are no destroy particles.
      */
     @Override
@@ -682,7 +694,7 @@ public class BlockCrop extends BlockContainerAgriCraft implements IGrowable, IPl
 
     /**
      * Retrieve the icon for a side of the block.
-     * 
+     *
      * @param side the side to get the icon for.
      * @param meta the metadata of the block.
      * @return the icon representing the side of the block.
@@ -695,7 +707,7 @@ public class BlockCrop extends BlockContainerAgriCraft implements IGrowable, IPl
 
     /**
      * Retrieve the icon for the weeds at a certain growth level represented by the metadata.
-     * 
+     *
      * @param meta the growth level of the weeds.
      * @return the icon representing the current weed growth.
      */
@@ -717,7 +729,7 @@ public class BlockCrop extends BlockContainerAgriCraft implements IGrowable, IPl
 
     /**
      * Handles the block receiving events.
-     * 
+     *
      * @return if the event was received properly.
      */
     @Override
@@ -734,7 +746,7 @@ public class BlockCrop extends BlockContainerAgriCraft implements IGrowable, IPl
 
     /**
      * Retrieves the custom renderer for the crops.
-     * 
+     *
      * @return the block's renderer.
      */
     @Override
@@ -755,7 +767,7 @@ public class BlockCrop extends BlockContainerAgriCraft implements IGrowable, IPl
 
     /**
      * Retrieves the type of plant growing within the crops.
-     * 
+     *
      * @return the plant type in the crops.
      */
     @Override
@@ -765,7 +777,7 @@ public class BlockCrop extends BlockContainerAgriCraft implements IGrowable, IPl
 
     /**
      * Retrieves the block form of the contained plant.
-     * 
+     *
      * @return the Block isntance of the plant currently planted
      */
     @Override
@@ -783,14 +795,14 @@ public class BlockCrop extends BlockContainerAgriCraft implements IGrowable, IPl
 
     /**
      * Retrieves the metadata of the plant.
-     * 
+     *
      * @return metadata representing the growth stage, ranges from 0 (inclusive) to 8 (exclusive)
      */
     @Override
     public int getPlantMetadata(IBlockAccess world, int x, int y, int z) {
         return world.getBlockMetadata(x, y, z);
     }
-    
+
     @Override
     public ItemStack getWailaStack(BlockAgriCraft block, TileEntityAgricraft tea) {
     	return new ItemStack(Items.crops, 1, 0);

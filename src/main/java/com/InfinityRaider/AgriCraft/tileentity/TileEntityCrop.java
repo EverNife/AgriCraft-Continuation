@@ -1,5 +1,8 @@
 package com.InfinityRaider.AgriCraft.tileentity;
 
+import br.com.finalcraft.evernnifeagricraft.minecraft.vector.BlockPos;
+import br.com.finalcraft.evernnifeagricraft.sprinklersystem.FCSprinklerManager;
+import br.com.finalcraft.evernnifeagricraft.sprinklersystem.ChunkSprinklerOptimizer;
 import com.InfinityRaider.AgriCraft.api.v1.IDebuggable;
 import com.InfinityRaider.AgriCraft.api.v1.IFertiliser;
 import com.InfinityRaider.AgriCraft.api.v2.IAdditionalCropData;
@@ -29,6 +32,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import javax.annotation.Nullable;
@@ -504,7 +508,10 @@ public class TileEntityCrop extends TileEntityAgricraft implements ICrop, IDebug
             list.add(" - This crop has no plant");
         }
     }
-    
+
+    @SideOnly(Side.CLIENT)
+    private Chunk cachedChunk;
+
     @Override
     @SideOnly(Side.CLIENT)
     @SuppressWarnings("unchecked")
@@ -518,7 +525,16 @@ public class TileEntityCrop extends TileEntityAgricraft implements ICrop, IDebug
     		} else {
     			information.add(StatCollector.translateToLocal("agricraft_tooltip.growthStage")+": "+((int) ( (100*(this.getBlockMetadata()+0.00F))/7.00F)+"%" ));
     		}
-    		//Add the analyzed data.
+            if (cachedChunk == null){
+                cachedChunk = worldObj.getChunkFromBlockCoords(xCoord, zCoord);
+            }
+
+            ChunkSprinklerOptimizer chunkSprinklerOptimizer = FCSprinklerManager.getOrCreateSprinklerOptmizer(cachedChunk);
+            chunkSprinklerOptimizer.scanChunkForSprinklers();
+            ChunkSprinklerOptimizer.PositionedCrop positionedCrop = chunkSprinklerOptimizer.getCropsOnThisChunk().get(new BlockPos(xCoord, yCoord, zCoord));
+            information.add(String.format("§bSprinklers Boost: §a§l%s§7§ox", positionedCrop.getNearSprinklersBoost()));
+
+            //Add the analyzed data.
     		if(this.isAnalyzed()) {
     			information.add(" - " + StatCollector.translateToLocal("agricraft_tooltip.growth") + ": " + StatStringDisplayer.instance().getStatDisplayString(this.getGrowth(), ConfigurationHandler.cropStatCap));
                 information.add(" - " + StatCollector.translateToLocal("agricraft_tooltip.gain") + ": " + StatStringDisplayer.instance().getStatDisplayString(this.getGain(), ConfigurationHandler.cropStatCap));
@@ -535,6 +551,26 @@ public class TileEntityCrop extends TileEntityAgricraft implements ICrop, IDebug
     	}
     	else {
     		information.add(StatCollector.translateToLocal("agricraft_tooltip.empty"));
+        }
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
+    // Optmization
+    //------------------------------------------------------------------------------------------------------------------
+
+    /** Apply a growth increment */
+    public void applyGrowthTick(int times) {
+        int flag = 2;
+        int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
+        if(hasPlant()) {
+            flag = plant.onAllowedGrowthTick(worldObj, xCoord, yCoord, zCoord, meta, this) ? 2 : 6;
+        }
+        if(ConfigurationHandler.renderCropPlantsAsTESR) {
+            flag = 6;
+        }
+        if (hasWeed() || !plant.isMature(worldObj, xCoord, yCoord, zCoord)) {
+            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, Math.min(7, meta + times), flag);
+            AppleCoreHelper.announceGrowthTick(this.getBlockType(), worldObj, xCoord, yCoord, zCoord);
         }
     }
 }
