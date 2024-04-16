@@ -46,7 +46,7 @@ public class TileEntitySprinkler extends TileEntityAgricraft {
         else {
             this.counter=0;
         }
-        
+
         if(tag.hasKey(Names.NBT.isSprinkled)) {
              this.isSprinkled = tag.getBoolean(Names.NBT.isSprinkled);
          }
@@ -71,18 +71,18 @@ public class TileEntitySprinkler extends TileEntityAgricraft {
     @Override
     public void updateEntity() {
         if (!worldObj.isRemote) {
-            if (this.sprinkle()) {
-                counter = ++counter % ConfigurationHandler.sprinklerGrowthIntervalTicks;
-                drainWaterFromChannel();
-
-                for (int yOffset = 1; yOffset < 6; yOffset++) {
-                    for (int xOffset = -3; xOffset <= 3; xOffset++) {
-                        for (int zOffset = -3; zOffset <= 3; zOffset++) {
-                            this.irrigate(this.xCoord + xOffset, this.yCoord - yOffset, this.zCoord + zOffset, yOffset>=5);
-                        }
-                    }
-                }
-            }
+//            if (this.sprinkle()) {
+//                counter = ++counter % ConfigurationHandler.sprinklerGrowthIntervalTicks;
+//                drainWaterFromChannel();
+//
+//                for (int yOffset = 1; yOffset < 6; yOffset++) {
+//                    for (int xOffset = -3; xOffset <= 3; xOffset++) {
+//                        for (int zOffset = -3; zOffset <= 3; zOffset++) {
+//                            this.irrigate(this.xCoord + xOffset, this.yCoord - yOffset, this.zCoord + zOffset, yOffset>=5);
+//                        }
+//                    }
+//                }
+//            }
         }
         else {
             if(this.isSprinkled) {
@@ -163,10 +163,47 @@ public class TileEntitySprinkler extends TileEntityAgricraft {
     public boolean isRotatable() {
         return false;
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public void addWailaInformation(List information) {
     	//Nothing to add here. Move along!
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
+    // Optmization
+    //------------------------------------------------------------------------------------------------------------------
+
+    public boolean optmizedSprinkleCheckAndDrainWater(int multiplierInSeconds){
+        boolean initialSprinkleState = this.isSprinkled;
+
+        if (!this.isConnected()){
+            if (initialSprinkleState){
+                this.isSprinkled = false;
+                this.markForUpdate();
+            }
+            return false;
+        }
+
+        TileEntityChannel waterChannel = (TileEntityChannel) this.worldObj.getTileEntity(this.xCoord, this.yCoord + 1, this.zCoord);
+
+        int waterToDrain = ConfigurationHandler.sprinklerRatePerHalfSecond * multiplierInSeconds;
+
+        if (waterChannel.getFluidLevel() < waterToDrain){
+            if (initialSprinkleState){
+                this.isSprinkled = false;
+                this.markForUpdate();
+            }
+            return false;
+        }
+
+        waterChannel.pullFluid(waterToDrain);
+
+        if (!initialSprinkleState){
+            this.isSprinkled = true;
+            this.markForUpdate();
+        }
+
+        return true;
     }
 }
