@@ -30,11 +30,12 @@ public class ChunkSprinklerOptimizer {
 
     private static final int MAX_SPRINKLERS_BOOST = 2;
     private transient long lastTimeTicked = 0;
+    private transient long lastTimeIrrigated = 0;
 
     private transient long lastTimeScanned = 0;
     private transient final int scanIntervalSeconds = 5;
 
-    private transient double chanceOfFail = 0; // 0.2 - 0.6
+    private transient double chanceOfFail = 0; // 0.35 - 0.75
 
     public ChunkSprinklerOptimizer(Chunk chunk) {
         this.chunk = chunk;
@@ -106,15 +107,13 @@ public class ChunkSprinklerOptimizer {
 
         }
 
-        this.chanceOfFail = Math.max(0.2, Math.min((0.6D / 200) * cropsOnThisChunk.size(), 0.7));
+        this.chanceOfFail = Math.max(0.35, Math.min((0.6D / 200) * cropsOnThisChunk.size(), 0.75));
 
     }
 
     public void tickTheEntireChunk(){
 
-        long diffLastTick = TickListener.getTickCounter() - lastTimeTicked;
-
-        if (diffLastTick < 3){
+        if (TickListener.getTickCounter() - lastTimeTicked < 5){
             return;
         }
 
@@ -122,9 +121,11 @@ public class ChunkSprinklerOptimizer {
             logger.info("[" + TickListener.getTickCounter() + "] Ticking Chunk: " + chunkPos + " for Sprinklers");
         }
 
-        lastTimeTicked = TickListener.getTickCounter();
-
-        boolean irrigateBellow = diffLastTick > 60;
+        boolean irrigateBellow = false;
+        if (TickListener.getTickCounter() - lastTimeIrrigated > 60){
+            lastTimeIrrigated = TickListener.getTickCounter();
+            irrigateBellow = true;
+        }
 
         //The idea is to scan all crops on the entire chunk and simulate the irrigate on every one of them at once
         for (PositionedCrop positionedCrop : cropsOnThisChunk.values()) {
@@ -210,9 +211,11 @@ public class ChunkSprinklerOptimizer {
                 int farmlandMeta = this.chunk.worldObj.getBlockMetadata(x, y, z);
 
                 // irrigate farmland
-                int newMeta = Math.min(7, farmlandMeta + 2);
-                this.chunk.worldObj.setBlockMetadataWithNotify(x, y, z, 7, newMeta);
-                this.chunk.worldObj.markBlockForUpdate(x, y, z);
+                if (farmlandMeta <= 5){
+                    this.chunk.worldObj.setBlockMetadataWithNotify(x, y, z, 7, 7);
+                    this.chunk.worldObj.markBlockForUpdate(x, y, z);
+                }
+
             }
         }
     }
