@@ -34,6 +34,8 @@ public class ChunkSprinklerOptimizer {
     private transient long lastTimeScanned = 0;
     private transient final int scanIntervalSeconds = 5;
 
+    private transient double chanceOfFail = 0; // 0.2 - 0.6
+
     public ChunkSprinklerOptimizer(Chunk chunk) {
         this.chunk = chunk;
         this.chunkPos = ChunkPos.from(chunk);
@@ -104,6 +106,8 @@ public class ChunkSprinklerOptimizer {
 
         }
 
+        this.chanceOfFail = Math.max(0.2, Math.min((0.6D / 200) * cropsOnThisChunk.size(), 0.7));
+
     }
 
     public void tickTheEntireChunk(){
@@ -125,6 +129,9 @@ public class ChunkSprinklerOptimizer {
         //The idea is to scan all crops on the entire chunk and simulate the irrigate on every one of them at once
         for (PositionedCrop positionedCrop : cropsOnThisChunk.values()) {
             try {
+                if (random.nextDouble() < chanceOfFail){
+                    continue;
+                }
                 tickTheCrop(positionedCrop, irrigateBellow);
             }catch (Exception e){
                 logger.severe("Error while ticking crop: " + positionedCrop.getBlockPos() + " on chunk: " + chunkPos);
