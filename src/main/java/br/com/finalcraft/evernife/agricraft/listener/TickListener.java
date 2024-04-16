@@ -1,6 +1,6 @@
-package br.com.finalcraft.evernnifeagricraft.listener;
+package br.com.finalcraft.evernife.agricraft.listener;
 
-import br.com.finalcraft.evernnifeagricraft.sprinklersystem.FCSprinklerManager;
+import br.com.finalcraft.evernife.agricraft.sprinklersystem.FCSprinklerManager;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;

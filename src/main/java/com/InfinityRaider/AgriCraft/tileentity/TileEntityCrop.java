@@ -1,8 +1,8 @@
 package com.InfinityRaider.AgriCraft.tileentity;
 
-import br.com.finalcraft.evernnifeagricraft.minecraft.vector.BlockPos;
-import br.com.finalcraft.evernnifeagricraft.sprinklersystem.FCSprinklerManager;
-import br.com.finalcraft.evernnifeagricraft.sprinklersystem.ChunkSprinklerOptimizer;
+import br.com.finalcraft.evernife.agricraft.minecraft.vector.BlockPos;
+import br.com.finalcraft.evernife.agricraft.sprinklersystem.FCSprinklerManager;
+import br.com.finalcraft.evernife.agricraft.sprinklersystem.ChunkSprinklerOptimizer;
 import com.InfinityRaider.AgriCraft.api.v1.IDebuggable;
 import com.InfinityRaider.AgriCraft.api.v1.IFertiliser;
 import com.InfinityRaider.AgriCraft.api.v2.IAdditionalCropData;

@@ -1,4 +1,4 @@
-package br.com.finalcraft.evernnifeagricraft.minecraft.vector;
+package br.com.finalcraft.evernife.agricraft.minecraft.vector;
 
 import java.util.Objects;
 

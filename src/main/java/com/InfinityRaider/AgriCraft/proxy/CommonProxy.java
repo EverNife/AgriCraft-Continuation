@@ -1,6 +1,6 @@
 package com.InfinityRaider.AgriCraft.proxy;
 
-import br.com.finalcraft.evernnifeagricraft.listener.TickListener;
+import br.com.finalcraft.evernife.agricraft.listener.TickListener;
 import com.InfinityRaider.AgriCraft.handler.ConfigurationHandler;
 import com.InfinityRaider.AgriCraft.handler.PlayerInteractEventHandler;
 import com.InfinityRaider.AgriCraft.handler.PlayerConnectToServerHandler;

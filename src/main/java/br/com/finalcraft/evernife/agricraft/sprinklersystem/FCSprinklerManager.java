@@ -1,6 +1,6 @@
-package br.com.finalcraft.evernnifeagricraft.sprinklersystem;
+package br.com.finalcraft.evernife.agricraft.sprinklersystem;
 
-import br.com.finalcraft.evernnifeagricraft.minecraft.vector.ChunkPos;
+import br.com.finalcraft.evernife.agricraft.minecraft.vector.ChunkPos;
 import net.minecraft.world.chunk.Chunk;
 
 import java.util.HashMap;

@@ -1,9 +1,9 @@
-package br.com.finalcraft.evernnifeagricraft.sprinklersystem;
+package br.com.finalcraft.evernife.agricraft.sprinklersystem;
 
-import br.com.finalcraft.evernnifeagricraft.listener.TickListener;
-import br.com.finalcraft.evernnifeagricraft.minecraft.vector.BlockPos;
-import br.com.finalcraft.evernnifeagricraft.minecraft.vector.ChunkPos;
-import br.com.finalcraft.evernnifeagricraft.minecraft.vector.CuboidSelection;
+import br.com.finalcraft.evernife.agricraft.listener.TickListener;
+import br.com.finalcraft.evernife.agricraft.minecraft.vector.BlockPos;
+import br.com.finalcraft.evernife.agricraft.minecraft.vector.ChunkPos;
+import br.com.finalcraft.evernife.agricraft.minecraft.vector.CuboidSelection;
 import com.InfinityRaider.AgriCraft.handler.ConfigurationHandler;
 import com.InfinityRaider.AgriCraft.tileentity.TileEntityCrop;
 import com.InfinityRaider.AgriCraft.tileentity.irrigation.TileEntitySprinkler;
