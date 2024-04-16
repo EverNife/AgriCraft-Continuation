@@ -1,5 +1,6 @@
 package com.InfinityRaider.AgriCraft.proxy;
 
+import br.com.finalcraft.evernnifeagricraft.listener.TickListener;
 import com.InfinityRaider.AgriCraft.handler.ConfigurationHandler;
 import com.InfinityRaider.AgriCraft.handler.PlayerInteractEventHandler;
 import com.InfinityRaider.AgriCraft.handler.PlayerConnectToServerHandler;
@@ -34,6 +35,10 @@ public abstract class CommonProxy implements IProxy {
         if (ConfigurationHandler.debug) {
             FMLCommonHandler.instance().bus().register(new RenderLogger());
         }
+
+        TickListener tickListener = new TickListener();
+        FMLCommonHandler.instance().bus().register(tickListener);
+        MinecraftForge.EVENT_BUS.register(tickListener);
     }
 
     @Override
