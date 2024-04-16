@@ -2,6 +2,7 @@ package com.InfinityRaider.AgriCraft.proxy;
 
 import codechicken.nei.api.API;
 import com.InfinityRaider.AgriCraft.blocks.BlockAgriCraft;
+import com.InfinityRaider.AgriCraft.commands.CMDAgriCraftClient;
 import com.InfinityRaider.AgriCraft.compatibility.NEI.NEIConfig;
 import com.InfinityRaider.AgriCraft.handler.ConfigurationHandler;
 import com.InfinityRaider.AgriCraft.handler.ItemToolTipHandler;
@@ -25,6 +26,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
 
 import java.lang.reflect.Field;
@@ -105,6 +107,8 @@ public class ClientProxy extends CommonProxy {
 
         SoundHandler soundHandler = new SoundHandler();
         MinecraftForge.EVENT_BUS.register(soundHandler);
+
+        ClientCommandHandler.instance.registerCommand(new CMDAgriCraftClient());
     }
 
     @Override

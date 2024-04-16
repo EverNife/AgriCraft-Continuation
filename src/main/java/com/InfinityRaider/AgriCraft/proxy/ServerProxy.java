@@ -1,9 +1,12 @@
 package com.InfinityRaider.AgriCraft.proxy;
 
+import com.InfinityRaider.AgriCraft.commands.CMDAgriCraft;
 import cpw.mods.fml.server.FMLServerHandler;
 import net.minecraft.block.Block;
+import net.minecraft.command.ServerCommandManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 
 @SuppressWarnings("unused")
@@ -33,7 +36,11 @@ public class ServerProxy extends CommonProxy {
     public void hideItemInNEI(ItemStack stack) {}
 
     @Override
-    public void registerEventHandlers() {super.registerEventHandlers();}
+    public void registerEventHandlers() {
+        super.registerEventHandlers();
+
+        ((ServerCommandManager)MinecraftServer.getServer().getCommandManager()).registerCommand(new CMDAgriCraft());
+    }
 
     @Override
     public int getRenderId(Block block) {

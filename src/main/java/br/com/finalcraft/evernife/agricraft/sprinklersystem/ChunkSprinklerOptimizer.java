@@ -7,6 +7,7 @@ import br.com.finalcraft.evernife.agricraft.minecraft.vector.CuboidSelection;
 import com.InfinityRaider.AgriCraft.handler.ConfigurationHandler;
 import com.InfinityRaider.AgriCraft.tileentity.TileEntityCrop;
 import com.InfinityRaider.AgriCraft.tileentity.irrigation.TileEntitySprinkler;
+import com.InfinityRaider.AgriCraft.utility.DebugHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFarmland;
 import net.minecraft.tileentity.TileEntity;
@@ -87,9 +88,11 @@ public class ChunkSprinklerOptimizer {
 
         }
 
-        logger.info("[" + TickListener.getTickCounter() + "] Scanned Chunk: " + chunkPos + " for Sprinklers amd Crops. " +
-            "\n - Sprinklers: " + sprinklersOnThisChunk.size() + "" +
-            "\n - Crops: " + cropsOnThisChunk.size());
+        if (DebugHelper.isDebugEnabled){
+            logger.info("[" + TickListener.getTickCounter() + "] Scanned Chunk: " + chunkPos + " for Sprinklers amd Crops. " +
+                "\n - Sprinklers: " + sprinklersOnThisChunk.size() + "" +
+                "\n - Crops: " + cropsOnThisChunk.size());
+        }
 
         for (PositionedCrop positionedCrop : cropsOnThisChunk.values()) {
 
@@ -111,7 +114,9 @@ public class ChunkSprinklerOptimizer {
             return;
         }
 
-        logger.info("[" + TickListener.getTickCounter() + "] Ticking Chunk: " + chunkPos + " for Sprinklers");
+        if (DebugHelper.isDebugEnabled){
+            logger.info("[" + TickListener.getTickCounter() + "] Ticking Chunk: " + chunkPos + " for Sprinklers");
+        }
 
         lastTimeTicked = TickListener.getTickCounter();
 
@@ -162,13 +167,15 @@ public class ChunkSprinklerOptimizer {
                 }
 
                 if (timesToApplyGrowthTick > 0){
-                    logger.info(String.format("  - Ticked crop: %s on chunk: %s. (willIrrigateSoil=%s)   SprinklersNear: %s FinalSprinkleBoost: %s",
-                        positionedCrop.getBlockPos(),
-                        chunkPos,
-                        irrigateBellow,
-                        multiplierTimes,
-                        timesToApplyGrowthTick
-                    ));
+                    if (DebugHelper.isDebugEnabled){
+                        logger.info(String.format("  - Ticked crop: %s on chunk: %s. (willIrrigateSoil=%s)   SprinklersNear: %s FinalSprinkleBoost: %s",
+                            positionedCrop.getBlockPos(),
+                            chunkPos,
+                            irrigateBellow,
+                            multiplierTimes,
+                            timesToApplyGrowthTick
+                        ));
+                    }
 
                     crop.applyGrowthTick(timesToApplyGrowthTick);
                 }
