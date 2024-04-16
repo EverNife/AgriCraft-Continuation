@@ -28,7 +28,7 @@ public class ChunkSprinklerOptimizer {
     private final Map<BlockPos, PositionedCrop> cropsOnThisChunk = new HashMap<>();
 
 
-    private static final int MAX_SPRINKLERS_BOOST = 3;
+    private static final int MAX_SPRINKLERS_BOOST = 2;
     private transient long lastTimeTicked = 0;
 
     private transient long lastTimeScanned = 0;
@@ -247,7 +247,7 @@ public class ChunkSprinklerOptimizer {
                     continue;
                 }
                 boosts++;
-                if (boosts > MAX_SPRINKLERS_BOOST){
+                if (boosts >= MAX_SPRINKLERS_BOOST){
                     break;
                 }
             }
